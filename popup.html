@@ -5,24 +5,35 @@
     <body>
 		<h2>__MSG_appName__</h2>
 		<hr>
-		<h3>__MSG_balance__</h3>
-		<div>
-			<p class="pan-label pan-label--left">__MSG_left__</p>
-			<p class="pan-label">__MSG_center__</p>
-			<p class="pan-label pan-label--right">__MSG_right__</p>
+		<div class="tab-nav">
+			<button type="button" class="tab-btn active" data-tab="balance">__MSG_tabBalance__</button>
+			<button type="button" class="tab-btn" data-tab="eq">__MSG_tabEqualizer__</button>
 		</div>
-		<div class="clear"></div>
-		<input type="range" id="TabDJExtensionPanInput" min="-1" value="0" max="1" step="0.1" list="input01">
-		<datalist id="input01">
-			<option>-1</option>
-			<option>-0.5</option>
-			<option>0</option>
-			<option>0.5</option>
-			<option>1</option>
-		</datalist>
-		<h3>__MSG_volume__</h3>
-		<p id="TabDJExtensionVolumeDisplay" class="value-display">100%</p>
-		<input type="range" id="TabDJExtensionVolumeInput" min="0" max="1" step="0.01" value="1">
+		<div id="panel-balance" class="tab-panel active">
+			<h3>__MSG_balance__</h3>
+			<div>
+				<p class="pan-label pan-label--left">__MSG_left__</p>
+				<p class="pan-label">__MSG_center__</p>
+				<p class="pan-label pan-label--right">__MSG_right__</p>
+			</div>
+			<div class="clear"></div>
+			<input type="range" id="TabDJExtensionPanInput" min="-1" value="0" max="1" step="0.1" list="input01">
+			<datalist id="input01">
+				<option>-1</option>
+				<option>-0.5</option>
+				<option>0</option>
+				<option>0.5</option>
+				<option>1</option>
+			</datalist>
+			<h3>__MSG_volume__</h3>
+			<p id="TabDJExtensionVolumeDisplay" class="value-display">100%</p>
+			<input type="range" id="TabDJExtensionVolumeInput" min="0" max="1" step="0.01" value="1">
+		</div>
+		<div id="panel-eq" class="tab-panel">
+			<h3>__MSG_tabEqualizer__</h3>
+			<div class="eq-bands" id="TabDJExtensionEqBands"></div>
+			<button type="button" class="reset-link" id="TabDJExtensionEqReset">__MSG_resetEq__</button>
+		</div>
 		<script type="application/javascript" src="popup.js"></script>
 	</body>
 </html>

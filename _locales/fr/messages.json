@@ -26,5 +26,17 @@
   "volume": {
     "message": "Volume",
     "description":"Caption for the volume"
+  },
+  "tabBalance": {
+    "message": "Équilibrage",
+    "description":"Tab nav label for the balance/volume panel"
+  },
+  "tabEqualizer": {
+    "message": "Égaliseur",
+    "description":"Tab nav label for the equalizer panel"
+  },
+  "resetEq": {
+    "message": "Réinitialiser",
+    "description":"Button that resets all equalizer bands to 0dB"
   }
 }

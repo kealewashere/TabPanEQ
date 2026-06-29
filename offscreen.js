@@ -1,15 +1,18 @@
 // Keyed by tabId. Holds the live Web Audio graph for each captured tab.
 const tabAudio = {};
 
+// 12-band graphic EQ center frequencies, low to high.
+const EQ_BANDS = [31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 12000, 16000, 20000];
+
 chrome.runtime.onMessage.addListener((msg) => {
     if (msg.target !== 'offscreen') return;
 
     switch (msg.type) {
         case 'capture_tab':
-            captureTab(msg.tabId, msg.streamId, msg.panning, msg.volume);
+            captureTab(msg.tabId, msg.streamId, msg.panning, msg.volume, msg.eq);
             break;
         case 'update_audio':
-            updateAudio(msg.tabId, msg.panning, msg.volume);
+            updateAudio(msg.tabId, msg.panning, msg.volume, msg.eq);
             break;
         case 'release_tab':
             releaseTab(msg.tabId);
@@ -17,11 +20,11 @@ chrome.runtime.onMessage.addListener((msg) => {
     }
 });
 
-async function captureTab(tabId, streamId, panning, volume) {
+async function captureTab(tabId, streamId, panning, volume, eq) {
     // If the service worker restarted and lost its state but this document kept
     // running, the audio graph already exists — just update the values.
     if (tabAudio[tabId]) {
-        updateAudio(tabId, panning, volume);
+        updateAudio(tabId, panning, volume, eq);
         return;
     }
 
@@ -51,16 +54,35 @@ async function captureTab(tabId, streamId, panning, volume) {
     gainNode.gain.setValueAtTime(volume, context.currentTime);
     const panNode = context.createStereoPanner();
     panNode.pan.setValueAtTime(panning, context.currentTime);
-    source.connect(gainNode).connect(panNode).connect(context.destination);
 
-    tabAudio[tabId] = { context, source, gainNode, panNode };
+    const filters = EQ_BANDS.map((freq, i) => {
+        const filter = context.createBiquadFilter();
+        filter.type = 'peaking';
+        filter.frequency.setValueAtTime(freq, context.currentTime);
+        filter.Q.setValueAtTime(1.4, context.currentTime);
+        filter.gain.setValueAtTime(eq[i], context.currentTime);
+        return filter;
+    });
+
+    let chain = gainNode;
+    filters.forEach((filter) => {
+        chain.connect(filter);
+        chain = filter;
+    });
+    source.connect(gainNode);
+    chain.connect(panNode).connect(context.destination);
+
+    tabAudio[tabId] = { context, source, gainNode, panNode, filters };
 }
 
-function updateAudio(tabId, panning, volume) {
+function updateAudio(tabId, panning, volume, eq) {
     const audio = tabAudio[tabId];
     if (!audio) return;
     audio.panNode.pan.setValueAtTime(panning, audio.context.currentTime);
     audio.gainNode.gain.setValueAtTime(volume, audio.context.currentTime);
+    audio.filters.forEach((filter, i) => {
+        filter.gain.setValueAtTime(eq[i], audio.context.currentTime);
+    });
 }
 
 function releaseTab(tabId) {
