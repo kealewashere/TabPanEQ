@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+	--bg: #0d0d0f;
+	--surface: #141416;
+	--border: #222228;
+	--accent: #c8f060;
+	--accent2: #ff6b3d;
+	--text: #e8e8ea;
+	--muted: #555560;
+	--warn: #ffcc44;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: var(--bg);
+	color: var(--text);
+	font-family: 'DM Sans', sans-serif;
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-top: 0.5em;
+	padding-bottom: 1em;
+	min-width: 220px;
+}
+
+h2 {
+	font-family: 'Space Mono', monospace;
+	font-size: 18px;
+	letter-spacing: -0.02em;
+	color: var(--accent);
+	margin-bottom: 0px;
+}
+
+hr {
+	border: none;
+	border-top: 1px solid var(--border);
+	margin: 10px 0;
+}
+
+h3 {
+	font-family: 'Space Mono', monospace;
+	font-size: 10px;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--muted);
+	margin-top: 16px;
+	margin-bottom: 6px;
+	padding-bottom: 0px;
+}
+
+.pan-label {
+	float: left;
+	width: 33.3333%;
+	text-align: center;
+	font-family: 'Space Mono', monospace;
+	font-size: 11px;
+	color: var(--text);
+}
+
+.pan-label--left {
+	text-align: left;
+}
+
+.pan-label--right {
+	text-align: right;
+}
+
+.clear {
+	clear: both;
+}
+
+.value-display {
+	text-align: center;
+	font-family: 'Space Mono', monospace;
+	font-size: 18px;
+	font-weight: 700;
+	color: var(--accent);
+	margin: 0 0 4px;
+}
+
+input[type="range"] {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+	height: 2px;
+	background: var(--border);
+	outline: none;
+	border-radius: 2px;
+	margin-top: 6px;
+	margin-bottom: 4px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background: var(--accent);
+	cursor: pointer;
+	border: 2px solid var(--bg);
+}
+
+input[type="range"]::-moz-range-thumb {
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background: var(--accent);
+	cursor: pointer;
+	border: 2px solid var(--bg);
+}
+
+input[type="range"]::-moz-range-track {
+	height: 2px;
+	background: var(--border);
+	border-radius: 2px;
+}

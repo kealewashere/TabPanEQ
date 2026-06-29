@@ -1,21 +1,17 @@
 <html>
 <head>
-	<style>
-		body {padding-left:0.5em;padding-right:0.5em}
-		h2 {margin-bottom:0px;}
-		h3 {margin-bottom:0px;padding-bottom:0px;}
-	</style>
+	<link rel="stylesheet" href="popup.css">
 </head>
     <body>
 		<h2>__MSG_appName__</h2>
 		<hr>
 		<h3>__MSG_balance__</h3>
 		<div>
-			<p style="float:left;width:33.3333%;text-align:left;">__MSG_left__</p>
-			<p style="float:left;width:33.3333%;text-align:center;">__MSG_center__</p>
-			<p style="float:left;width:33.3333%;text-align:right;">__MSG_right__</p>
+			<p class="pan-label pan-label--left">__MSG_left__</p>
+			<p class="pan-label">__MSG_center__</p>
+			<p class="pan-label pan-label--right">__MSG_right__</p>
 		</div>
-		<div style="clear: both;"></div>
+		<div class="clear"></div>
 		<input type="range" id="TabDJExtensionPanInput" min="-1" value="0" max="1" step="0.1" list="input01">
 		<datalist id="input01">
 			<option>-1</option>
@@ -25,12 +21,8 @@
 			<option>1</option>
 		</datalist>
 		<h3>__MSG_volume__</h3>
-		<div>
-			<p style="float:left;width:33.3333%;text-align:left;">0</p>
-			<p style="float:left;width:33.3333%;text-align:center;">50%</p>
-			<p style="float:left;width:33.3333%;text-align:right;">100%</p>
-		</div>
-		<input type="range" id="TabDJExtensionVolumeInput" min="0" max="1" step="0.1" value="1">
+		<p id="TabDJExtensionVolumeDisplay" class="value-display">100%</p>
+		<input type="range" id="TabDJExtensionVolumeInput" min="0" max="1" step="0.01" value="1">
 		<script type="application/javascript" src="popup.js"></script>
 	</body>
 </html>
