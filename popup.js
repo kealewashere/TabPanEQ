@@ -1,4 +1,4 @@
-const port = chrome.runtime.connect({ name: 'Tab DJ' });
+const port = chrome.runtime.connect({ name: 'TabPanEQ' });
 
 const EQ_BANDS = [31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 12000, 16000, 20000];
 
